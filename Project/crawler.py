@@ -1,48 +1,5 @@
 from webdev import read_url
 
-# Multiplies a matrix by a scalar value.
-# Inputs: matrix, scalar value (scale)
-# Outputs: copy of matrix after multiplication by scalar value
-def mult_scalar(matrix, scale):
-	copy = matrix
-	for x in copy:
-		for y in range(0,len(x)):
-			value = x[y]
-			x[y] = scale*value
-	return copy
-
-# Multiplies 2 matrices
-# Inputs: matrix a, matrix b
-# Output: product of matrix a and b OR None if they can't be multiplied
-def mult_matrix(a, b):
-	if len(a[0]) == len(b):
-		product = []
-		for x in range(len(a)):
-			row = []
-			for i in range(len(b[0])):
-				sum = 0
-				for y in range(len(b)):
-					sum+=a[x][y]*b[y][i]
-				row.append(sum)
-			product.append(row)
-		return product
-	else:
-		return None
-
-# Calculates euclidian distance between 2 matrices
-# Inputs: matrix a, matrix b
-# Outputs: distance between matrix a and b OR None if they don't have an equal amount of rows
-def euclidean_dist(a,b):
-	if len(a) == len(b):
-		sum = 0
-		for x in range(len(a)):
-			for y in range(len(a[0])):
-				sum += (a[x][y]-b[x][y]) ** 2
-		distance = sum ** 0.5
-		return distance
-	else:
-		return None
-
 # Opens readsites.txt and reads the data from it
 # Inputs: none
 # Outputs: number of sites/files for sites (num_files) and all raw data (data)
@@ -51,7 +8,7 @@ def file_data():
     data = f.readlines()
     num_files = int(data[0].strip('\n'))
     f.close()
-    return num_files,data
+    return num_files, data
 
 # Turns a link into its text file name
 # Inputs: link
@@ -91,6 +48,49 @@ def find_incoming_links(URL):
         return incoming
     else:
          return None
+
+# Multiplies a matrix by a scalar value.
+# Inputs: matrix, scalar value (scale)
+# Outputs: copy of matrix after multiplication by scalar value
+def mult_scalar(matrix, scale):
+	copy = matrix
+	for x in copy:
+		for y in range(0,len(x)):
+			value = x[y]
+			x[y] = scale*value
+	return copy
+
+# Multiplies 2 matrices
+# Inputs: matrix a, matrix b
+# Output: product of matrix a and b OR None if they can't be multiplied
+def mult_matrix(a, b):
+	if len(a[0]) == len(b):
+		product = []
+		for x in range(len(a)):
+			row = []
+			for i in range(len(b[0])):
+				sum = 0
+				for y in range(len(b)):
+					sum+=a[x][y]*b[y][i]
+				row.append(sum)
+			product.append(row)
+		return product
+	else:
+		return None
+
+# Calculates euclidian distance between 2 matrices
+# Inputs: matrix a, matrix b
+# Outputs: distance between matrix a and b OR None if they don't have an equal amount of rows
+def euclidean_dist(a, b):
+	if len(a) == len(b):
+		sum = 0
+		for x in range(len(a)):
+			for y in range(len(a[0])):
+				sum += (a[x][y]-b[x][y]) ** 2
+		distance = sum ** 0.5
+		return distance
+	else:
+		return None
 
 # Calculates all page ranks for sites in the crawl
 # Inputs: none
@@ -136,7 +136,7 @@ def calc_page_ranks():
         distance = euclidean_dist(prev,current)
     return current
 
-def makeLink(raw,link):
+def makeLink(raw, link):
     raw = raw.replace('href=','')
     raw = raw.replace('"','')
     raw = raw.replace('./',('/'.join(link[:5])+'/'))
