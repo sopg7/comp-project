@@ -1,0 +1,156 @@
+Passed Test #0 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-14.html
+
+expected = 0.03159579999999999
+result = 0.031595799999999986
+
+
+Passed Test #1 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-11.html
+
+expected = 0.03892039999999999
+result = 0.03892039999999998
+
+
+Passed Test #2 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-9.html
+
+expected = 0.0414408
+result = 0.041440799999999986
+
+
+Passed Test #3 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-12.html
+
+expected = 0.05466807999999999
+result = 0.05466807999999997
+
+
+Passed Test #4 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-19.html
+
+expected = 0.04810359999999998
+result = 0.04810359999999997
+
+
+Passed Test #5 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-2.html
+
+expected = 0.03692783999999999
+result = 0.036927839999999976
+
+
+Passed Test #6 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-17.html
+
+expected = 0.04550911999999999
+result = 0.04550911999999997
+
+
+Passed Test #7 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-20.html
+
+expected = 0.021270039999999987
+result = 0.021270039999999987
+
+
+Passed Test #8 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-16.html
+
+expected = 0.01904219999999999
+result = 0.019042199999999992
+
+
+Passed Test #9 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-10.html
+
+expected = 0.03686656
+result = 0.03686655999999998
+
+
+Passed Test #10 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-24.html
+
+expected = 0.048347039999999994
+result = 0.04834703999999997
+
+
+Passed Test #11 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-13.html
+
+expected = 0.05083659999999998
+result = 0.05083659999999997
+
+
+Passed Test #12 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-3.html
+
+expected = 0.03690907999999999
+result = 0.03690907999999998
+
+
+Passed Test #13 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-21.html
+
+expected = 0.04654291999999999
+result = 0.04654291999999997
+
+
+Passed Test #14 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-22.html
+
+expected = 0.04630903999999998
+result = 0.046309039999999975
+
+
+Passed Test #15 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-8.html
+
+expected = 0.033533439999999984
+result = 0.03353343999999998
+
+
+Passed Test #16 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-6.html
+
+expected = 0.028174759999999986
+result = 0.028174759999999983
+
+
+Passed Test #17 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-5.html
+
+expected = 0.028309039999999987
+result = 0.028309039999999987
+
+
+Passed Test #18 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-15.html
+
+expected = 0.03434247999999999
+result = 0.03434247999999998
+
+
+Passed Test #19 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-0.html
+
+expected = 0.051393999999999995
+result = 0.05139399999999997
+
+
+Passed Test #20 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-1.html
+
+expected = 0.04014835999999998
+result = 0.04014835999999997
+
+
+Passed Test #21 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-7.html
+
+expected = 0.05204075999999999
+result = 0.05204075999999997
+
+
+Passed Test #22 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-4.html
+
+expected = 0.051696559999999975
+result = 0.05169655999999996
+
+
+Passed Test #23 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-18.html
+
+expected = 0.033838480000000004
+result = 0.03383847999999998
+
+
+Passed Test #24 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/fruits25/N-23.html
+
+expected = 0.043232999999999994
+result = 0.04323299999999998
+
+
+Passed Test #25 checking page rank for URL https://people.scs.carleton.ca/~avamckenney/tinyfruits/N.html
+
+expected = -1
+result = -1
+
+
