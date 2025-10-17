@@ -112,7 +112,6 @@ def calc_page_ranks():
         distance = euclidean_dist(prev,current)
     return current
 
-
 def makeLink(raw,link):
     raw = raw.replace('href=','')
     raw = raw.replace('"','')
@@ -174,4 +173,3 @@ def crawl(seed):
         f.close()
     return len(read_sites)
     
-print(crawl('https://people.scs.carleton.ca/~avamckenney/fruits25/N-0.html'))
