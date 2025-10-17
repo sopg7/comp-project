@@ -1,5 +1,8 @@
 from webdev import read_url
 
+# Multiplies a matrix by a scalar value.
+# Inputs: matrix, scalar value (scale)
+# Outputs: copy of matrix after multiplication by scalar value
 def mult_scalar(matrix, scale):
 	copy = matrix
 	for x in copy:
@@ -8,6 +11,9 @@ def mult_scalar(matrix, scale):
 			x[y] = scale*value
 	return copy
 
+# Multiplies 2 matrices
+# Inputs: matrix a, matrix b
+# Output: product of matrix a and b OR None if they can't be multiplied
 def mult_matrix(a, b):
 	if len(a[0]) == len(b):
 		product = []
@@ -23,6 +29,9 @@ def mult_matrix(a, b):
 	else:
 		return None
 
+# Calculates euclidian distance between 2 matrices
+# Inputs: matrix a, matrix b
+# Outputs: distance between matrix a and b OR None if they don't have an equal amount of rows
 def euclidean_dist(a,b):
 	if len(a) == len(b):
 		sum = 0
@@ -34,6 +43,9 @@ def euclidean_dist(a,b):
 	else:
 		return None
 
+# Opens readsites.txt and reads the data from it
+# Inputs: none
+# Outputs: number of sites/files for sites (num_files) and all raw data (data)
 def file_data():
     f = open('readsites.txt','r')
     data = f.readlines()
@@ -41,10 +53,16 @@ def file_data():
     f.close()
     return num_files,data
 
+# Turns a link into its text file name
+# Inputs: link
+# Outputs: text file name (ex: N-1.txt)
 def txt_name(link):
     link = link.split('/')
     return f'{link[5].strip('.html\n')}.txt'
 
+# Finds all outgoing links from a website
+# Inputs: which site to find the outgoing links for (URL)
+# Outputs: list of all outgoing links (outgoing)
 def find_outgoing_links(URL):
     outgoing = []
     f = open(txt_name(URL),'r')
@@ -56,7 +74,10 @@ def find_outgoing_links(URL):
         return outgoing
     else:
         return None
-
+		
+# Finds all incoming links for a website
+# Inputs: which site to find incoming links for (URL)
+# Outputs: list of all incoming links (incoming)
 def find_incoming_links(URL):
     incoming = []
     num_files,data = file_data()
@@ -71,6 +92,9 @@ def find_incoming_links(URL):
     else:
          return None
 
+# Calculates all page ranks for sites in the crawl
+# Inputs: none
+# Outputs: list of all page ranks (current)
 def calc_page_ranks():
     num_sites,data = file_data()
     matrix = []
@@ -173,3 +197,4 @@ def crawl(seed):
         f.close()
     return len(read_sites)
     
+
