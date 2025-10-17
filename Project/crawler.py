@@ -154,23 +154,25 @@ def crawl(seed):
         data = data.split()
         start = None
         stop = None
-        entered = False
         writing = []
+        text = []
         link = sites[0].split('/')
         for x in range(len(data)):
             if '<p>' in data[x]:
-                start = x
+                start.append(x+1)
             if '</p>' in data[x]:
-                stop = x
+                stop.append(x)
             if 'href=' in data[x]:
                 data[x] = makeLink(data[x],link)
                 writing.append(data[x])
                 if data[x] not in sites and data[x] not in read_sites:
                     sites.append(data[x])
-            if start != None and stop != None and entered == False:
-                writing.insert(0,f'og:{sites[0]}')
-                writing.insert(0,','.join(data[start+1:stop]))
-                entered = True
+            writing.insert(0,f'og:{sites[0]}')
+            while len(start) > 0:
+                text.append(0,','.join(data[start[0]:stop[0]]))
+                start.pop(0)
+                stop.pop(0)
+            writing.insert(0,','.join(text))
         f = open(txt_name(sites[0]),'w')
         f.write(f'{'\n'.join(writing)}\n')
         f.close()
