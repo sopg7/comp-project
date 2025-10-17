@@ -152,8 +152,8 @@ def crawl(seed):
     while len(sites) > 0:
         data = read_url(sites[0])
         data = data.split()
-        start = None
-        stop = None
+        start = []
+        stop = []
         writing = []
         text = []
         link = sites[0].split('/')
@@ -167,12 +167,12 @@ def crawl(seed):
                 writing.append(data[x])
                 if data[x] not in sites and data[x] not in read_sites:
                     sites.append(data[x])
-            writing.insert(0,f'og:{sites[0]}')
-            while len(start) > 0:
-                text.append(0,','.join(data[start[0]:stop[0]]))
-                start.pop(0)
-                stop.pop(0)
-            writing.insert(0,','.join(text))
+        while len(start) > 0:
+            text.append(','.join(data[start[0]:stop[0]]))
+            start.pop(0)
+            stop.pop(0)
+        writing.insert(0,f'og:{sites[0]}')
+        writing.insert(0,','.join(text))
         f = open(txt_name(sites[0]),'w')
         f.write(f'{'\n'.join(writing)}\n')
         f.close()
@@ -198,5 +198,3 @@ def crawl(seed):
         f.write(writing)
         f.close()
     return len(read_sites)
-    
-

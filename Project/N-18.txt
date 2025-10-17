@@ -1,4 +1,4 @@
-kiwi,apricot,papaya,fig,apricot,papaya,apple,apricot,peach,coconut,lime,blueberry,strawberry,coconut
+kiwi,apricot,papaya,fig,apricot,papaya,apple,apricot,peach,coconut,lime,blueberry,strawberry,coconut,papaya,banana,kiwi,papaya,blueberry,cherry,peach,banana,apricot,strawberry,apricot,peach,apricot,apricot,lime,lime,banana,coconut,strawberry,fig,apricot,pear,pear,banana,strawberry,lime,coconut,blueberry,apple,pear,peach,pear,papaya,lime,lime,banana,kiwi,apple,lime,strawberry,peach,pear,lime,blueberry,fig,lime,pear,pear,blueberry,kiwi,coconut,apricot
 og:https://people.scs.carleton.ca/~avamckenney/fruits25/N-18.html
 https://people.scs.carleton.ca/~avamckenney/fruits25/N-0.html
 https://people.scs.carleton.ca/~avamckenney/fruits25/N-19.html
