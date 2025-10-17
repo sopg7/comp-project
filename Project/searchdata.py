@@ -36,3 +36,46 @@ def get_page_rank(URL):
     else:
         return -1
     
+
+#---------------------------------------------------
+
+#PREVIOUS CODE ABOVE COMPELETED BY SOPHIE
+import math
+
+def get_idf(word):
+
+    if docFreq[word] == 0:
+        return 0
+    
+    #gotta really see what the previous code looks like before actually making more of this
+    #idfw = math.log((totalDocs/(1 + docFreq[word])), 2)
+
+    if idfw < 0:
+        return 0
+    return idfw
+
+def get_tf(URL, word):
+    tCount = 0
+    wCount = 0
+
+    #for items in URL:
+    #    tCount += 1
+    #    if items == word:
+    #        wCount +=  1
+
+    if URL not in wordCount:
+        return 0
+    
+    #OR: if dict of URL w/ docFreq[word] + wordCount[doc] already made:
+    tfwPerDoc = docFreq[word] / wordCount[URL]
+
+    if wCount == 0:
+        return 0
+
+   #tfwPerDoc = wCount / tCount
+    return tfwPerDoc
+
+def get_tf_idf(URL, word):
+    tf_idf = log(1 + get_tf(URL, word)) * get_idf(word)
+    return tf_idf
+
