@@ -3,7 +3,7 @@ from webdev import read_url
 # Opens readsites.txt and reads the data from it
 # Inputs: none
 # Outputs: number of sites/files for sites (num_files) and all raw data (data)
-def file_data():
+def readsites_data():
     f = open('readsites.txt','r')
     data = f.readlines()
     num_files = int(data[0].strip('\n'))
@@ -37,7 +37,7 @@ def find_outgoing_links(URL):
 # Outputs: list of all incoming links (incoming)
 def find_incoming_links(URL):
     incoming = []
-    num_files,data = file_data()
+    num_files,data = readsites_data()
     for x in range(1,len(data)):
         f = open(txt_name(data[x]),'r')
         file_links = f.readlines()
@@ -96,7 +96,7 @@ def euclidean_dist(a, b):
 # Inputs: none
 # Outputs: list of all page ranks (current)
 def calc_page_ranks():
-    num_sites,data = file_data()
+    num_sites,data = readsites_data()
     matrix = []
     vector = []
     innerVector = []
@@ -136,7 +136,7 @@ def calc_page_ranks():
         distance = euclidean_dist(prev,current)
     return current
 
-def makeLink(raw, link):
+def make_link(raw, link):
     raw = raw.replace('href=','')
     raw = raw.replace('"','')
     raw = raw.replace('./',('/'.join(link[:5])+'/'))
@@ -163,7 +163,7 @@ def crawl(seed):
             if '</p>' in data[x]:
                 stop.append(x)
             if 'href=' in data[x]:
-                data[x] = makeLink(data[x],link)
+                data[x] = make_link(data[x],link)
                 writing.append(data[x])
                 if data[x] not in sites and data[x] not in read_sites:
                     sites.append(data[x])
