@@ -61,15 +61,25 @@ def word_count(word, URL):
     
     return word_count
 
+#get total number of unique documents
+def total_docs():
+    file = open('readsites.txt', 'r')
+    link_count = file.readline()
+    file.close()
+    return link_count
+
 #get number of documents containing a specific word
 def doc_freq_of_word(word):
     per_doc_count = 0
     seed = open('readsites.txt', 'r')
-    total_links = int(seed.readline().strip())
     all_links = seed.readlines()
 
-    for all in range(seed):
+    for all in range(len(all_links)):
+        if all == 0: 
+            continue #skip total # of docs at top of readsites.txt
+
         current = word_count(word, f'{(all_links[all].split('/'))[5].strip('.html\n')}.txt') #links to relevant text file containing relevant info
+        
         if current > 0:
             per_doc_count += 1
 
@@ -82,7 +92,7 @@ def get_idf(word):
     if doc_freq_of_word(word) == 0:
         return 0
     
-    idfw = math.log((totalDocs/(1 + doc_freq_of_word(word))), 2)
+    idfw = math.log((total_docs()/(1 + doc_freq_of_word(word))), 2)
 
     if idfw < 0:
         return 0
