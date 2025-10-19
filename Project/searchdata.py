@@ -52,7 +52,7 @@ import math
 #get number of times word appears in a certain document
 def word_count(word, URL):
     content = open(URL, 'r') #align formatting of URL w/ Sophie's formatting
-    words = content.strip().split(',')
+    words = content.readline().strip().split(',') #read only first line and format
     word_count = 0
 
     for each in words:
@@ -66,7 +66,7 @@ def total_docs():
     file = open('readsites.txt', 'r')
     link_count = file.readline()
     file.close()
-    return link_count
+    return int(link_count)
 
 #get number of documents containing a specific word
 def doc_freq_of_word(word):
@@ -78,14 +78,14 @@ def doc_freq_of_word(word):
         if all == 0: 
             continue #skip total # of docs at top of readsites.txt
 
-        current = word_count(word, f'{(all_links[all].split('/'))[5].strip('.html\n')}.txt') #links to relevant text file containing relevant info
+        current_link = all_links[all].split('/')
+        current = word_count(word, f'{current_link[5].strip('.html\n')}.txt') #links to relevant text file containing relevant info
         
         if current > 0:
             per_doc_count += 1
 
     seed.close()
     return per_doc_count
-
 
 def get_idf(word):
 
@@ -98,26 +98,28 @@ def get_idf(word):
         return 0
     return idfw
 
+def get_total_words(URL):
+    page = open(URL, 'r')
+    words = page.readline().split(',')
+    page.close()
+    return len(words)
+
+
 def get_tf(URL, word):
     tCount = 0
-    wCount = 0
+    seed = open('readsites.txt', 'r')
+    all_seed_content = seed.readlines().split()
+    if URL in all_seed_content:
+        word_count = word_count(word, URL)
+    else: #if URL is not found
+        return 0
 
-    #for items in URL:
-    #    tCount += 1
-    #    if items == word:
-    #        wCount +=  1
-
-    if URL not in wordCount:
+    if word_count == 0:
         return 0
     
-    #OR: if dict of URL w/ docFreq[word] + wordCount[doc] already made:
-    tfwPerDoc = docFreq[word] / wordCount[URL]
-
-    if wCount == 0:
-        return 0
-
-   #tfwPerDoc = wCount / tCount
-    return tfwPerDoc
+    tfwd = word_count / get_total_words(URL)
+    seed.close()
+    return tfwd
 
 def get_tf_idf(URL, word):
     tf_idf = log(1 + get_tf(URL, word)) * get_idf(word)
