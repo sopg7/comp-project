@@ -16,8 +16,7 @@ def readsites_data():
 # Outputs: text file name (ex: N-1.txt)
 def txt_name(link):
     link = link.split('/')
-
-    return f'{link[5].strip('.html\n')}.txt'
+    return f'{'-'.join([link[4],link[5].strip('.html\n')])}.txt'
 
 # Finds all outgoing links from a website
 # Inputs: which site to find the outgoing links for (URL)
@@ -243,3 +242,4 @@ def crawl(seed):
         f.close()
         
     return len(read_sites)
+
