@@ -1,3 +1,5 @@
+import math
+
 def find_index(URL):
     f = open('readsites.txt','r')
     data = f.readlines()
@@ -40,14 +42,6 @@ def get_page_rank(URL):
 #---------------------------------------------------
 
 #PREVIOUS CODE ABOVE COMPELETED BY SOPHIE
-import math
-
-#what documents we have:
-#outgoing.txt = file of outgoing links for each link
-#incoming.txt = file of incoming links for each link
-#pagerank.txt = file of ranks of each link?
-#readsites.txt = file of all files crawled thru + total link count
-# all N-X.txt = files of content of each link
 
 #get number of times word appears in a certain document
 def word_count(word, URL):
@@ -98,35 +92,33 @@ def get_idf(word):
         return 0
     return idfw
 
+#fetch total number of words to parse in specific document
 def get_total_words(URL):
     page = open(f'{URL}', 'r') #match URL to file
     words = page.readline().split(',')
     page.close()
     return len(words)
 
-
 def get_tf(URL, word):
     #tCount = 0
     seed = open('readsites.txt', 'r')
     all_seed_content = seed.readlines()
-    print(f'{URL}', all_seed_content)
+
     if f'{URL+'\n'}' in all_seed_content:
         current_URL = f'{URL.split('/')[5].strip('.html')+'.txt'}' #format URL to match file name
         w_count = word_count(word, current_URL) 
     else: #if URL is not found
-        print('here')
         return 0
 
     if word_count == 0:
-        print('here?')
         return 0
     
     tfwd = w_count / get_total_words(current_URL)
     seed.close()
-    print('here!')
+
     return tfwd
 
 def get_tf_idf(URL, word):
-    tf_idf = log(1 + get_tf(URL, word)) * get_idf(word)
-    return tf_idf
+    tf_idf_wd = math.log(1 + get_tf(URL, word), 2) * get_idf(word) #must be log base 2 or else answers incorrect: not indicated in project outline but in lessons briefly
+    return tf_idf_wd
 
