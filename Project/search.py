@@ -44,6 +44,7 @@ def euclidean_dist(a):
 def vectorize(word, document):
     seed = open('readsites.txt', 'r')
     all_links = seed.readlines()[1:] #from index [1] onward
+    all_links = seed.readlines()[1:] #from index [1] onward
     vector = []
 
     vector.append(searchdata.get_tf_idf(document.strip('\n'), word))
