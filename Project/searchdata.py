@@ -48,7 +48,7 @@ def get_page_rank(URL):
 #get number of times word appears in a certain document
 def word_count(word, URL):
     content = open(URL, 'r')
-    words = content.readline().strip().split(',') #read only first line and format
+    words = content.readlines()[1].strip().split(',') #read only second line and format
     word_count = 0
 
     for each in words:
@@ -73,10 +73,10 @@ def doc_freq_of_word(word): #CAN IMPROVE RUN TIME MAYBE?
 
     for all in range(len(all_links)):
         if all == 0: 
-            continue #skip total # of docs at top of readsites.txt
+            continue #skip lines at top of readsites.txt
 
         current_link = all_links[all].split('/')
-        current = word_count(word, f'{current_link[5].strip('.html\n')}.txt') #links to relevant text file containing relevant info
+        current = word_count(word, f'{'-'.join([current_link[4],current_link[5].strip('.html\n')])}.txt') #links to relevant text file containing relevant info
         
         if current > 0:
             per_doc_count += 1
@@ -98,15 +98,15 @@ def get_idf(word):
 
 #fetch total number of words to parse in specific document
 def get_total_words(URL):
-    page = open(f'{URL}', 'r') #match URL to file
-    words = page.readline().split(',')
+    page = open(f'{URL}', 'r') #URL already formatted
+    words = page.readlines()[1].split(',') #only read second line
     page.close()
     
     return len(words)
 
 def get_tf(URL, word): 
     if find_index(URL) != -1:
-        current_URL = f'{URL.split('/')[5].strip('.html')+'.txt'}' #format URL to match file name
+        current_URL = f'{'-'.join([URL.split('/')[4],URL.split('/')[5].strip('.html\n')])}.txt' #format URL to match file name
         w_count = word_count(word, current_URL) 
     else: #if URL is not found
         return 0
@@ -115,7 +115,6 @@ def get_tf(URL, word):
         return 0
     
     tfwd = w_count / get_total_words(current_URL)
-    seed.close()
 
     return tfwd
 
