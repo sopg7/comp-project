@@ -42,6 +42,8 @@ def euclidean_dist(a):
 #get vector score of a specific word for a document
 #for links in all_links: 
 def vectorize(word, document):
+#get vector score of a specific word for all documents in order of appearance in readsites.txt
+def vectorize(word):
     seed = open('readsites.txt', 'r')
     all_links = seed.readlines()[1:] #from index [1] onward
     vector = []
