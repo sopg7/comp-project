@@ -39,8 +39,9 @@ def euclidean_dist(a):
 	return eucl_dist ** 0.5
 
 #TREAT QUERY EXACTLY LIKE A DOCUMENT
-#get vector score of a specific word for all documents in order of appearance in readsites.txt
-def vectorize(word):
+#get vector score of a specific word for a document
+#for links in all_links: 
+def vectorize(word, document):
     seed = open('readsites.txt', 'r')
     all_links = seed.readlines()[1:] #from index [1] onward
     vector = []
