@@ -99,26 +99,31 @@ def get_idf(word):
     return idfw
 
 def get_total_words(URL):
-    page = open(URL, 'r')
+    page = open(f'{URL}', 'r') #match URL to file
     words = page.readline().split(',')
     page.close()
     return len(words)
 
 
 def get_tf(URL, word):
-    tCount = 0
+    #tCount = 0
     seed = open('readsites.txt', 'r')
-    all_seed_content = seed.readlines().split()
-    if URL in all_seed_content:
-        word_count = word_count(word, URL)
+    all_seed_content = seed.readlines()
+    print(f'{URL}', all_seed_content)
+    if f'{URL+'\n'}' in all_seed_content:
+        current_URL = f'{URL.split('/')[5].strip('.html')+'.txt'}' #format URL to match file name
+        w_count = word_count(word, current_URL) 
     else: #if URL is not found
+        print('here')
         return 0
 
     if word_count == 0:
+        print('here?')
         return 0
     
-    tfwd = word_count / get_total_words(URL)
+    tfwd = w_count / get_total_words(current_URL)
     seed.close()
+    print('here!')
     return tfwd
 
 def get_tf_idf(URL, word):
