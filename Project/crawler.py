@@ -15,7 +15,7 @@ def readsites_data():
 # Outputs: text file name (ex: N-1.txt)
 def txt_name(link):
     link = link.split('/')
-    return f'{link[5].strip('.html\n')}.txt'
+    return f'{'-'.join([link[4],link[5].strip('.html\n')])}.txt'
 
 # Finds all outgoing links from a website
 # Inputs: which site to find the outgoing links for (URL)
@@ -23,7 +23,7 @@ def txt_name(link):
 def find_outgoing_links(URL):
     outgoing = []
     f = open(txt_name(URL),'r')
-    outgoing = f.readlines()[2:]
+    outgoing = f.readlines()[3:]
     for s in range(len(outgoing)):
             outgoing[s] = outgoing[s].strip('\n')
     f.close
@@ -41,8 +41,8 @@ def find_incoming_links(URL):
     for x in range(1,len(data)):
         f = open(txt_name(data[x]),'r')
         file_links = f.readlines()
-        if f'{URL}\n' in file_links and file_links[1].strip('og:\n') not in incoming and f'{URL}\n' != file_links[1].strip('og:'):
-            incoming.append(file_links[1].strip('og:\n'))
+        if f'{URL}\n' in file_links and file_links[2].strip('og:\n') not in incoming and f'{URL}\n' != file_links[2].strip('og:'):
+            incoming.append(file_links[2].strip('og:\n'))
         f.close()
     if len(incoming) >= 1:
         return incoming
@@ -139,7 +139,8 @@ def calc_page_ranks():
 def make_link(raw, link):
     raw = raw.replace('href=','')
     raw = raw.replace('"','')
-    raw = raw.replace('./',('/'.join(link[:5])+'/'))
+    if 'https://' not in raw:
+        raw = raw.replace('./',('/'.join(link[:5])+'/'))
     elements = raw.split('>')
     if len(elements) >= 1:
         raw = elements[0]
@@ -157,7 +158,13 @@ def crawl(seed):
         writing = []
         text = []
         link = sites[0].split('/')
+        title_start = 0
+        title_stop = 0
         for x in range(len(data)):
+            if '<title>' in data[x]:
+                title_start = x
+            if '</title>' in data[x]:
+                title_stop = x
             if '<p>' in data[x]:
                 start.append(x+1)
             if '</p>' in data[x]:
@@ -171,8 +178,13 @@ def crawl(seed):
             text.append(','.join(data[start[0]:stop[0]]))
             start.pop(0)
             stop.pop(0)
+        title = ' '.join(data[title_start:title_stop+1])
+        title.strip(' ')
+        title = title.replace('<html><head><title>','')
+        title = title.replace('</title></head><body>','')
         writing.insert(0,f'og:{sites[0]}')
         writing.insert(0,','.join(text))
+        writing.insert(0,title)
         f = open(txt_name(sites[0]),'w')
         f.write(f'{'\n'.join(writing)}\n')
         f.close()
@@ -184,8 +196,10 @@ def crawl(seed):
     incoming = []
     outgoing = []
     for x in read_sites:
-        incoming.append(','.join(find_incoming_links(x)))
-        outgoing.append(','.join(find_outgoing_links(x)))
+        if find_incoming_links(x) != None:
+            incoming.append(','.join(find_incoming_links(x)))
+        if find_outgoing_links(x) != None:
+            outgoing.append(','.join(find_outgoing_links(x)))
     page_ranks = calc_page_ranks()[0]
     pages = [incoming,outgoing,page_ranks]
     page_names = ['incoming','outgoing','pagerank']
@@ -198,3 +212,5 @@ def crawl(seed):
         f.write(writing)
         f.close()
     return len(read_sites)
+
+#print(crawl('https://people.scs.carleton.ca/~avamckenney/fruits25/N-0.html'))
