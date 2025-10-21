@@ -1,0 +1,4 @@
+N-6<p>
+apple,fig,lime,peach,orange,blueberry,apricot,pear,banana,banana,pear,kiwi,fig,pear,fig,orange
+og:https://people.scs.carleton.ca/~avamckenney/tinyfruits/N-6.html
+https://people.scs.carleton.ca/~avamckenney/tinyfruits/N-0.html

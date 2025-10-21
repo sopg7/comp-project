@@ -34,7 +34,7 @@ def cos_similarity(query, link):
         term_freq = searchdata.get_tf(link, query[term])
         numerator += term_freq * tf_idfs[term]
         left_denom += tf_idfs[term] ** 2            
-        right_denom += term_freq ** 2 #CHECK IF THIS IS TERM FREQ OR TF_IDF
+        right_denom += term_freq ** 2 #NOT TF_IDF
 
     if left_denom == 0 or right_denom == 0:
         return 0
@@ -42,17 +42,19 @@ def cos_similarity(query, link):
         return (numerator / (left_denom * right_denom) ** 0.5) #output score for document in relation w/ query
 
 def search(phrase, boost):
-    list_query = phrase.split(' ')
     #'url' = 'absolute-link'
     #'title' = 'N-X' format?
     #'score' = float value
     global final_score
     #top 10 ranked search results, sorted highest to lowest
     global tf_idfs
+    tf_idfs = []
+    cos_simi = []
+    list_query = phrase.split(' ')
+
     seed = open('readsites.txt', 'r')
     all_links = seed.readlines()[1:] #from index [1] onward
     seed.close()
-    cos_simi = []
     pagerank_file = open('pagerank.txt', 'r')
     pages_ranked = pagerank_file.readline().split(', ')
     #format: [0] = N-0.txt -> [n] = N-n.txt
