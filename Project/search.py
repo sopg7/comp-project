@@ -1,4 +1,3 @@
-# ???? idk what i'm doing here pls halp
 import searchdata
 import math
 
@@ -42,24 +41,18 @@ def cos_similarity(query, link):
         return (numerator / (left_denom * right_denom) ** 0.5) #output score for document in relation w/ query
 
 def search(phrase, boost):
-    #'url' = 'absolute-link'
-    #'title' = 'N-X' format?
-    #'score' = float value
     global final_score
-    #top 10 ranked search results, sorted highest to lowest
     global tf_idfs
     tf_idfs = []
     cos_simi = []
     list_query = phrase.split(' ')
 
     seed = open('readsites.txt', 'r')
-    all_links = seed.readlines()[1:] #from index [1] onward
+    all_links = seed.readlines()[1:]
     seed.close()
     pagerank_file = open('pagerank.txt', 'r')
     pages_ranked = pagerank_file.readline().split(', ')
-    #format: [0] = N-0.txt -> [n] = N-n.txt
     pagerank_file.close()
-
 
     #make query accessible to get_tf and get_idf functions
     query_file = open('query.txt', 'w')
@@ -92,7 +85,7 @@ def search(phrase, boost):
 
     final_score = sort_highest(final_score)
         
-    return final_score[:10] #stop before index [10]
+    return final_score[:10]
 
 
 

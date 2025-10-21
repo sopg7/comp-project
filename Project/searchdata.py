@@ -71,7 +71,7 @@ def total_docs():
     return int(link_count)
 
 #get number of documents containing a specific word
-def doc_freq_of_word(word): #CAN IMPROVE RUN TIME MAYBE?
+def doc_freq_of_word(word):
     per_doc_count = 0
     seed = open('readsites.txt', 'r')
     all_links = seed.readlines()
