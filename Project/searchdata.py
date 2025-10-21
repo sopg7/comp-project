@@ -131,4 +131,3 @@ def get_tf_idf(URL, word):
     tf_idf_wd = math.log(1 + get_tf(URL, word), 2) * get_idf(word) #must be log base 2 or else answers incorrect: not indicated in project outline but in lessons briefly
     
     return tf_idf_wd
-
