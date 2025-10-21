@@ -1,0 +1,4 @@
+N-1<p>
+fig,lime,blueberry,blueberry,orange,blueberry,cherry,blueberry,cherry,orange,kiwi,lime,fig,cherry,apricot,peach,apricot,banana,fig,coconut
+og:https://people.scs.carleton.ca/~avamckenney/tinyfruits/N-1.html
+https://people.scs.carleton.ca/~avamckenney/tinyfruits/N-0.html

@@ -5,9 +5,9 @@ def find_index(URL):
     f = open('readsites.txt','r')
     data = f.readlines()
     f.close()
-    
-    if f'{URL}\n' in data:
-        index_URL = data.index(f'{URL}\n')
+
+    if f'{URL.strip()}\n' in data:
+        index_URL = data.index(f'{URL.strip()}\n')
         return index_URL - 1
     else:
         return -1
@@ -48,7 +48,12 @@ def get_page_rank(URL):
 #get number of times word appears in a certain document
 def word_count(word, URL):
     content = open(URL, 'r')
-    words = content.readline().strip().split(',') #read only first line and format
+
+    if URL == 'query.txt':
+        words = content.readline().strip().split(',')
+    else:
+        words = content.readlines()[1].strip().split(',') #read only second line and format
+
     word_count = 0
 
     for each in words:
@@ -66,17 +71,17 @@ def total_docs():
     return int(link_count)
 
 #get number of documents containing a specific word
-def doc_freq_of_word(word): #CAN IMPROVE RUN TIME MAYBE?
+def doc_freq_of_word(word):
     per_doc_count = 0
     seed = open('readsites.txt', 'r')
     all_links = seed.readlines()
 
     for all in range(len(all_links)):
         if all == 0: 
-            continue #skip total # of docs at top of readsites.txt
+            continue #skip lines at top of readsites.txt
 
         current_link = all_links[all].split('/')
-        current = word_count(word, f'{current_link[5].strip('.html\n')}.txt') #links to relevant text file containing relevant info
+        current = word_count(word, f'{'-'.join([current_link[4],current_link[5].strip('.html\n')])}.txt') #links to relevant text file containing relevant info
         
         if current > 0:
             per_doc_count += 1
@@ -98,29 +103,31 @@ def get_idf(word):
 
 #fetch total number of words to parse in specific document
 def get_total_words(URL):
-    page = open(f'{URL}', 'r') #match URL to file
-    words = page.readline().split(',')
+    page = open(f'{URL}', 'r') #URL already formatted
+    if URL == 'query.txt':
+        words = page.readline().strip().split(',')
+    else:
+        words = page.readlines()[1].split(',') #only read second line
     page.close()
     
     return len(words)
 
 def get_tf(URL, word): 
     if find_index(URL) != -1:
-        current_URL = f'{URL.split('/')[5].strip('.html')+'.txt'}' #format URL to match file name
+        current_URL = f'{'-'.join([URL.split('/')[4],URL.split('/')[5].strip('.html\n')])}.txt' #format URL to match file name
         w_count = word_count(word, current_URL) 
+    elif URL == 'query.txt':
+        current_URL = URL
     else: #if URL is not found
         return 0
 
-    if word_count == 0:
+    if word_count(word, current_URL) == 0:
         return 0
     
-    tfwd = w_count / get_total_words(current_URL)
-    seed.close()
-
+    tfwd = word_count(word, current_URL) / get_total_words(current_URL)
     return tfwd
 
 def get_tf_idf(URL, word):
     tf_idf_wd = math.log(1 + get_tf(URL, word), 2) * get_idf(word) #must be log base 2 or else answers incorrect: not indicated in project outline but in lessons briefly
     
     return tf_idf_wd
-
