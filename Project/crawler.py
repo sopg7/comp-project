@@ -250,5 +250,3 @@ def crawl(seed):
         f.close()
         
     return len(read_sites)
-
-#print(crawl('https://people.scs.carleton.ca/~avamckenney/fruits25/N-0.html'))
