@@ -5,9 +5,9 @@ def find_index(URL):
     f = open('readsites.txt','r')
     data = f.readlines()
     f.close()
-    
-    if f'{URL}\n' in data:
-        index_URL = data.index(f'{URL}\n')
+
+    if f'{URL.strip()}\n' in data:
+        index_URL = data.index(f'{URL.strip()}\n')
         return index_URL - 1
     else:
         return -1
@@ -48,7 +48,12 @@ def get_page_rank(URL):
 #get number of times word appears in a certain document
 def word_count(word, URL):
     content = open(URL, 'r')
-    words = content.readlines()[1].strip().split(',') #read only second line and format
+
+    if URL == 'query.txt':
+        words = content.readline().strip().split(',')
+    else:
+        words = content.readlines()[1].strip().split(',') #read only second line and format
+
     word_count = 0
 
     for each in words:
@@ -99,7 +104,10 @@ def get_idf(word):
 #fetch total number of words to parse in specific document
 def get_total_words(URL):
     page = open(f'{URL}', 'r') #URL already formatted
-    words = page.readlines()[1].split(',') #only read second line
+    if URL == 'query.txt':
+        words = page.readline().strip().split(',')
+    else:
+        words = page.readlines()[1].split(',') #only read second line
     page.close()
     
     return len(words)
@@ -108,14 +116,15 @@ def get_tf(URL, word):
     if find_index(URL) != -1:
         current_URL = f'{'-'.join([URL.split('/')[4],URL.split('/')[5].strip('.html\n')])}.txt' #format URL to match file name
         w_count = word_count(word, current_URL) 
+    elif URL == 'query.txt':
+        current_URL = URL
     else: #if URL is not found
         return 0
 
-    if word_count == 0:
+    if word_count(word, current_URL) == 0:
         return 0
     
-    tfwd = w_count / get_total_words(current_URL)
-
+    tfwd = word_count(word, current_URL) / get_total_words(current_URL)
     return tfwd
 
 def get_tf_idf(URL, word):
