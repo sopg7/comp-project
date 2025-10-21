@@ -3,20 +3,25 @@ import searchdata
 import math
 
 tf_idfs = []
-cos_simi = []
+final_score = [{'score': 0}]
 
 #sort 2D list from highest to lowest w/ selection sort
 def sort_highest(list_2d):
     new_list = list_2d
+    
     for element in range(len(new_list)):
         maximum = element #start of unsorted
 
-        for unsorted in range(maximum + 1, len(new_list)):
-            if new_list[unsorted][1] < new_list[maximum][1]:
+        #find largest value in unsorted
+        for unsorted in range(element + 1, len(new_list)):
+            if 'score' not in new_list[unsorted]: 
+                continue
+            if new_list[unsorted]['score'] > new_list[maximum]['score']:
                 maximum = unsorted
 
-            if maximum != unsorted:
-                new_list[unsorted], new_list[maximum] = new_list[maximum], new_list[unsorted]
+        #swap only once per iteration
+        if maximum != element:
+            new_list[element], new_list[maximum] = new_list[maximum], new_list[element]
 
     return new_list
 
@@ -41,12 +46,13 @@ def search(phrase, boost):
     #'url' = 'absolute-link'
     #'title' = 'N-X' format?
     #'score' = float value
-    final_score = [{'url': '', 'title': '', 'score': 0}, {}] #top 10 ranked search results, sorted highest to lowest
+    global final_score
+    #top 10 ranked search results, sorted highest to lowest
     global tf_idfs
     seed = open('readsites.txt', 'r')
     all_links = seed.readlines()[1:] #from index [1] onward
     seed.close()
-    global cos_simi
+    cos_simi = []
     pagerank_file = open('pagerank.txt', 'r')
     pages_ranked = pagerank_file.readline().split(', ')
     #format: [0] = N-0.txt -> [n] = N-n.txt
@@ -71,8 +77,6 @@ def search(phrase, boost):
         cos_result = cos_similarity(list_query, all_links[link])
         cos_simi.append([link, cos_result])
 
-    cos_simi = sort_highest(cos_simi)
-
     for order in range(len(cos_simi)):
         final_score.append({})
         final_score[order]['score'] = cos_simi[order][1]
@@ -83,5 +87,10 @@ def search(phrase, boost):
 
         if boost == True:
             final_score[order]['score'] = cos_simi[order][1] * searchdata.get_page_rank(final_score[order]['url']) 
+
+    final_score = sort_highest(final_score)
         
     return final_score[:10] #stop before index [10]
+
+
+
